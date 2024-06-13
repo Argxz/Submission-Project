@@ -92,8 +92,8 @@ btnSubmit.addEventListener("click", function() {
                 id: +new Date(),
                 title: title.value.trim(),
                 author: author.value.trim(),
-                year: year.value,
-                isCompleted: readed.checked
+                year: parseInt(year.value),
+                isComplete: readed.checked
             }
             insertData(newBook)
 
@@ -111,7 +111,7 @@ btnSubmit.addEventListener("click", function() {
             title: title.value.trim(),
             author: author.value.trim(),
             year: year.value,
-            isCompleted: readed.checked
+            isComplete: readed.checked
         }
         insertData(newBook)
         btnSubmit.innerHTML = "Masukan Buku"
@@ -176,7 +176,7 @@ function showData(books = []) {
     completed.innerHTML = ''
 
     books.forEach(book => {
-        if (book.isCompleted == false) {
+        if (book.isComplete == false) {
             let el = `
             <article class="book_item">
                 <h3>${book.title}</h3>
@@ -222,7 +222,7 @@ function showSearchResult(books) {
             <h3>${book.title}</h3>
             <p>Penulis: ${book.author}</p>
             <p>Tahun: ${book.year}</p>
-            <p>${book.isCompleted ? 'Sudah dibaca' : 'Belum dibaca'}</p>
+            <p>${book.isComplete ? 'Sudah dibaca' : 'Belum dibaca'}</p>
         </article>
         `
 
@@ -240,7 +240,7 @@ function readedBook(id) {
             title: bookDataDetail[0].title,
             author: bookDataDetail[0].author,
             year: bookDataDetail[0].year,
-            isCompleted: true
+            isComplete: true
         }
 
         const bookData = getData().filter(a => a.id != id);
@@ -262,7 +262,7 @@ function unreadedBook(id) {
             title: bookDataDetail[0].title,
             author: bookDataDetail[0].author,
             year: bookDataDetail[0].year,
-            isCompleted: false
+            isComplete: false
         }
 
         const bookData = getData().filter(a => a.id != id);
@@ -278,8 +278,8 @@ function editBook(id) {
     const bookDataDetail = getData().filter(a => a.id == id);
     title.value = bookDataDetail[0].title
     author.value = bookDataDetail[0].author
-    year.value = bookDataDetail[0].year
-    bookDataDetail[0].isCompleted ? readed.checked = true:readed.checked = false
+    year.value = bookDataDetail[0].year.toString()
+    bookDataDetail[0].isComplete ? readed.checked = true:readed.checked = false
 
     btnSubmit.innerHTML = "Edit buku"
     btnSubmit.value = bookDataDetail[0].id
